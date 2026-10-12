@@ -25,7 +25,7 @@ COPY frontend/ ./
 RUN npm run build
 
 # --- Stufe 3: Rust-Backend ---
-FROM rust:1-bookworm AS rustbuild
+FROM rust:1-slim-bookworm AS rustbuild
 WORKDIR /src
 # Abhängigkeiten zuerst bauen, damit Codeänderungen den Cache nicht ungültig machen
 COPY backend/Cargo.toml backend/Cargo.lock ./
