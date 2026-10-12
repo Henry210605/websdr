@@ -1,0 +1,20 @@
+services:
+  websdr:
+    build: .
+    image: websdr:latest
+    container_name: websdr
+    ports:
+      - "${WEBSDR_PORT:-8073}:8073"
+    # USB-Geräte durchreichen. Die cgroup-Regel erlaubt Zugriff auch nach Ab- und Anstecken.
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ./data:/app/data
+    device_cgroup_rules:
+      - "c 189:* rmw"
+    environment:
+      # usb | usb:1 | rtl_tcp://host.docker.internal:1234 | sim
+      - SDR_SOURCE=${SDR_SOURCE:-usb}
+      - CONTROL_PASSWORD=${CONTROL_PASSWORD:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

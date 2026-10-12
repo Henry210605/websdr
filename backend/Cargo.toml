@@ -1,0 +1,26 @@
+[package]
+name = "websdr"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1"
+axum = { version = "0.8", features = ["ws"] }
+clap = { version = "4", features = ["derive", "env"] }
+crossbeam-channel = "0.5"
+futures-util = "0.3"
+libloading = "0.8"
+num-complex = "0.4"
+parking_lot = "0.12"
+rustfft = "6"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync", "signal", "fs"] }
+tower-http = { version = "0.6", features = ["fs"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1

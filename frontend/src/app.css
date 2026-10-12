@@ -1,0 +1,53 @@
+:root {
+  --bg: #0e1118;
+  --panel: #151a24;
+  --panel2: #1d2330;
+  --border: #262d3d;
+  --hover: #2a3245;
+  --text: #e3e8f2;
+  --muted: #8a93a8;
+  --accent: #2f6fe4;
+  --freq: #8fd0ff;
+  color-scheme: dark;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#app {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+button,
+select,
+input {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 4px 8px;
+}
+button {
+  cursor: pointer;
+}
+button:hover:not(:disabled) {
+  background: var(--hover);
+}
+button:disabled,
+select:disabled,
+input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+input[type='range'] {
+  padding: 0;
+  accent-color: var(--accent);
+}
+input[type='checkbox'] {
+  accent-color: var(--accent);
+}
