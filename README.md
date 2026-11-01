@@ -56,7 +56,7 @@ der sich verbindet; übernehmen per Knopf in der Seitenleiste, optional mit
 
 ## Konfiguration
 
-Umgebungsvariablen (in `docker-compose.yml` oder per `.env`-Datei):
+Umgebungsvariablen (am einfachsten in einer `.env`-Datei im Projektordner, Vorlage: `.env.example`):
 
 | Variable | Standard | Bedeutung |
 |---|---|---|
@@ -97,6 +97,28 @@ Windows im Browser http://localhost:8073 öffnen.
 [rtl-sdr-blog-Release](https://github.com/rtlsdrblog/rtl-sdr-blog/releases) unter Windows
 starten (`rtl_tcp -a 0.0.0.0`) und den Container mit
 `SDR_SOURCE=rtl_tcp://host.docker.internal:1234` starten.
+
+## Stick an einem Raspberry Pi (rtl_tcp)
+
+Hängt der Stick an einem anderen Rechner, z. B. einem Raspberry Pi, wird er dort per
+`rtl_tcp` im Netz freigegeben und WebSDR holt sich die Daten über das Netzwerk.
+Dieser Weg braucht kein usbipd.
+
+Auf dem Pi (Treiber von [rtl-sdr-blog](https://github.com/rtlsdrblog/rtl-sdr-blog), damit der V4
+richtig abgestimmt wird; `rtl_test -t` sollte „RTL-SDR Blog V4 Detected“ melden):
+
+```bash
+rtl_tcp -a 0.0.0.0 -p 1234
+```
+
+Im Projektordner `.env` anlegen (Vorlage: `.env.example`):
+
+```
+SDR_SOURCE=rtl_tcp://192.168.2.98:1234
+```
+
+Danach `docker compose up -d`. `rtl_tcp` hat keine Anmeldung: Port 1234 nicht ins Internet
+weiterleiten. Eine feste IP für den Pi (DHCP-Reservierung im Router) ist empfehlenswert.
 
 ## Fehlersuche
 
